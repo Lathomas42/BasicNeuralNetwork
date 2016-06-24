@@ -1,5 +1,5 @@
 #imports
-from sklearn.linear_mode import LogisticRegressionCV
+from sklearn.linear_model import LogisticRegressionCV
 from sklearn.datasets import make_moons
 import numpy as np
 np.random.seed(0)
@@ -31,7 +31,7 @@ class NetworkModel():
         self.b2 = np.zeros((1,nnet.outDim))
 
 class NeuralNetwork():
-    def __init__(self, dimIn=2, dimOut=2, dimHidden=2,eps=0.01, rlamda = 0.01):
+    def __init__(self, dimIn=2, dimOut=2, dimHidden=2,eps=0.01, rlambda = 0.01):
         self.inDim = dimIn #Input dim
         self.outDim = dimOut #output dim
         self.hiddenDim  = dimHidden #hidden layer Dimension
@@ -68,7 +68,7 @@ class NeuralNetwork():
         probs = exp_scores/np.sum(exp_score, axis=1,keepdims=True)
         return np.argmax(probs, axis=1)
 
-    def train_model(self,X_data, y_data n_pass = 2000):
+    def train_model(self,X_data, y_data, n_pass = 2000):
         np.random.seed(0)
         #reinit model
         self.model = NetworkModel(self)
@@ -77,7 +77,7 @@ class NeuralNetwork():
             #forward prop
             z1 = X_data.dot(m.W1) + m.b1
             a1 = X_data.dot(z1)
-            z2 = X_data.dot(m.W2)
+            z2 = X_data.dot(m.W2) + m.b2
             exp_scores = np.exp(z2)
             probs = exp_scrores / np.sum(exp_scores, axis=1, keepdims=True)
 
